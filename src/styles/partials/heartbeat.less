@@ -1,0 +1,27 @@
+@import '../../vendor/lesshat/build/lesshat';
+
+
+.heart {
+    display: inline-block;
+    .scale3d( .8, .8, 1 );
+    color: #96281B;
+    font-size: 21px;
+}
+
+.heart:hover {
+    .animation( heartbeat .6667s infinite );
+}
+
+
+/* .keyframes( ~'heartbeat,
+    0%   {
+        transform: scale3d( .8, .8, 1 );
+        color: #96281b;
+    }
+    100% {
+        transform: scale3d( 1, 1, 1 );
+        color: #d91e18;
+    }
+') */
+
+.keyframes(~'heartbeat, 0% { transform: scale3d( .8, .8, 1 ); color: #96281b; } 100% { transform: scale3d( 1, 1, 1 ); color: #d91e18; }');
