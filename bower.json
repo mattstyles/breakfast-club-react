@@ -1,7 +1,0 @@
-{
-  "name": "parkr",
-  "version": "0.0.0",
-  "dependencies": {
-    "lesshat": "~3.0.2"
-  }
-}

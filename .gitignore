@@ -1,5 +1,10 @@
 .DS_Store
 npm-debug.log
 node_modules
-dist
-src/vendor
+src
+.bowerrc
+.jshintrc
+bower.json
+gulpfile.js
+package.json
+README.md
