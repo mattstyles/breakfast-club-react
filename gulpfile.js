@@ -71,7 +71,12 @@ gulp.task( 'styles', function() {
         .src( './src/styles/main.less' )
         .pipe( $.plumber() )
         .pipe( $.if( !!args.d, $.sourcemaps.init() ) )
-        .pipe( $.less() )
+        .pipe( $.less({
+            paths: [
+                '.',
+                './src/vendor/lesshat/build'
+            ]
+        }))
         .pipe( $.if( !args.d, $.minifyCss() ) )
         .pipe( $.if( !!args.d, $.sourcemaps.write() ) )
         .pipe( gulp.dest( './dist/' ) )
