@@ -1,4 +1,7 @@
-# Breakfast Club - React and Awesome Animals
+Breakfast Club
+---
+
+# React and Awesome Animals
 
 > Breakfast club supporting repo - 16.01.15
 
@@ -8,6 +11,8 @@
 Once cloned and installed there is a handy start script to build the client, this also sets up a watch task if you just want to crack on and get hacking
 
 ```
+npm install
+bower install
 npm run start
 ```
 

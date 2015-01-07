@@ -5,14 +5,12 @@
  */
 
 var React = require( 'react' );
-
+var Cover = require( './components/cover.jsx' );
 
 var App = React.createClass({
     render: function() {
         return (
-            <div className="app">
-                <h2>Hello React</h2>
-            </div>
+            <Cover />
         );
     }
 });
