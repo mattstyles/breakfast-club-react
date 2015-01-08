@@ -74,7 +74,7 @@ gulp.task( 'styles', function() {
         .pipe( $.less({
             paths: [
                 '.',
-                './src/vendor/lesshat/build'
+                './src/vendor/'
             ]
         }))
         .pipe( $.if( !args.d, $.minifyCss() ) )
