@@ -3,58 +3,40 @@
 var React = require( 'react' );
 var router = require( 'director' ).Router();
 var bindall = require( 'lodash.bindall' );
+var EventEmitter = require( 'eventemitter3' );
 var assign = require( 'object-assign' );
 
 var Cover = require( '../components/cover.jsx' );
 
-var Router = function( el ) {
+var Router = function() {
     bindall( this );
 
-    this.el = el;
-    this.attach( el );
+    router.configure({
+        notfound: this.home
+    });
+
+    router.on( '/', this.home );
+    router.on( '/user', this.user);
+
+    router.init();
+
+    return this;
 };
 
-assign( Router.prototype, {
-
-    attach: function( el ) {
-        if ( !el ) {
-            throw new Error( 'Router requires an element to attach to' );
-        }
-
-        router.configure({
-            notfound: this.home
-        });
-
-        router.on( '/', this.home );
-        router.on( '/user', this.user);
-
-        router.init();
-
-        return this;
-    },
+assign( Router.prototype, EventEmitter.prototype, {
 
     home: function() {
-        React.render(
-            <Cover />,
-            this.el
-        );
+        this.emit( 'change:hash', {
+            page: 'home'
+        });
 
         return this;
     },
 
     user: function() {
-        var App = React.createClass({
-            render: function() {
-                return (
-                    <h1>hello world</h1>
-                );
-            }
+        this.emit( 'change:hash', {
+            page: 'user'
         });
-
-        React.render(
-            <App />,
-            this.el
-        );
 
         return this;
     }
@@ -62,4 +44,4 @@ assign( Router.prototype, {
 });
 
 
-module.exports = Router;
+module.exports = new Router();

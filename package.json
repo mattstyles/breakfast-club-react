@@ -11,6 +11,7 @@
   "license": "WTFPL",
   "dependencies": {
     "director": "^1.2.7",
+    "eventemitter3": "^0.1.6",
     "flux": "^2.0.1",
     "object-assign": "^2.0.0",
     "react": "^0.12.2"
