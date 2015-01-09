@@ -6,9 +6,10 @@
 
 var React = require( 'react' );
 var Cover = require( './components/cover.jsx' );
+var Home = require( './components/home.jsx' );
 
 var router = require( './routers/router.jsx' );
-var constants = require( './constants/routes' );
+var constants = require( './constants/actions' );
 
 var App = React.createClass({
 
@@ -18,7 +19,7 @@ var App = React.createClass({
         }
     },
 
-    componentDidMount: function() {
+    componentWillMount: function() {
         router.register( this.onHashChange );
     },
 
@@ -35,7 +36,7 @@ var App = React.createClass({
     render: function() {
         if ( this.state.page === 'home' ) {
             return (
-                <Cover />
+                <Home />
             );
         }
 
