@@ -178,7 +178,7 @@ gulp.task( 'build', [ 'styles', 'scripts', 'polyfill', 'copy' ] );
  *
  * Note: scripts are watched via watchify rather than gulp.watch
  */
-gulp.task( 'track', [ 'clean' ], function() {
+gulp.task( 'watch', [ 'clean' ], function() {
     args.w = true;
 
     return gulp.start(
