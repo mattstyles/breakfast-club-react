@@ -3,12 +3,14 @@
 var React = require( 'react' );
 var router = require( 'director' ).Router();
 var bindall = require( 'lodash.bindall' );
-var EventEmitter = require( 'eventemitter3' );
-var assign = require( 'object-assign' );
+var Dispatcher = require( 'flux' ).Dispatcher;
 
-var Cover = require( '../components/cover.jsx' );
+var constants = require( '../constants/routes' );
+
 
 var Router = function() {
+    Dispatcher.call( this );
+
     bindall( this );
 
     router.configure({
@@ -23,10 +25,11 @@ var Router = function() {
     return this;
 };
 
-assign( Router.prototype, EventEmitter.prototype, {
+Object.assign( Router.prototype, Dispatcher.prototype, {
 
     home: function() {
-        this.emit( 'change:hash', {
+        this.dispatch({
+            action: constants.HASH_CHANGE,
             page: 'home'
         });
 
@@ -34,7 +37,8 @@ assign( Router.prototype, EventEmitter.prototype, {
     },
 
     user: function() {
-        this.emit( 'change:hash', {
+        this.dispatch({
+            action: constants.HASH_CHANGE,
             page: 'user'
         });
 

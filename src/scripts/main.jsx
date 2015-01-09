@@ -8,6 +8,7 @@ var React = require( 'react' );
 var Cover = require( './components/cover.jsx' );
 
 var router = require( './routers/router.jsx' );
+var constants = require( './constants/routes' );
 
 var App = React.createClass({
 
@@ -18,12 +19,16 @@ var App = React.createClass({
     },
 
     componentDidMount: function() {
-        router.on( 'change:hash', this.update );
+        router.register( this.update );
     },
 
-    update: function( data ) {
+    update: function( payload ) {
+        if ( payload.action !== constants.HASH_CHANGE ) {
+            return;
+        }
+
         this.setState({
-            page: data.page
+            page: payload.page
         });
     },
 

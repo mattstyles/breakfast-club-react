@@ -142,11 +142,31 @@ gulp.task( 'scripts', function() {
     return compile();
 });
 
+/**
+ * Polyfills
+ * ---
+ */
+gulp.task( 'polyfill', function() {
+    return browserify({
+        entries: './src/scripts/polyfill.js',
+        debug: false
+    })
+        .bundle()
+        .on( 'error', $.util.log.bind( $.util, 'Error building polyfills' ) )
+        .pipe( source( 'polyfill.min.js' ) )
+        .pipe( $.streamify( $.uglify() ) )
+        .pipe( gulp.dest( './dist/' ) )
+        .pipe( ping( 'Polyfills built' ) )
+        .pipe( $.livereload({
+            auto: false
+        }));
+});
+
 
 /**
  * Builds everything
  */
-gulp.task( 'build', [ 'styles', 'scripts', 'copy' ] );
+gulp.task( 'build', [ 'styles', 'scripts', 'polyfill', 'copy' ] );
 
 
 /**
