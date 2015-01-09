@@ -19,10 +19,10 @@ var App = React.createClass({
     },
 
     componentDidMount: function() {
-        router.register( this.update );
+        router.register( this.onHashChange );
     },
 
-    update: function( payload ) {
+    onHashChange: function( payload ) {
         if ( payload.action !== constants.HASH_CHANGE ) {
             return;
         }

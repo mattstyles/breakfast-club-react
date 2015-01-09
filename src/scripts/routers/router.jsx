@@ -8,35 +8,73 @@ var Dispatcher = require( 'flux' ).Dispatcher;
 var constants = require( '../constants/routes' );
 
 
-var Router = function() {
-    Dispatcher.call( this );
+// var Router = function() {
+//     Dispatcher.call( this );
+//
+//     bindall( this );
+//
+//     router.configure({
+//         notfound: this.home
+//     });
+//
+//     router.on( '/', this.home );
+//     router.on( '/user', this.user);
+//
+//     router.init();
+//
+//     return this;
+// };
+//
+// Object.assign( Router.prototype, Dispatcher.prototype, {
+//
+//     home: function() {
+//         this.dispatch({
+//             action: constants.HASH_CHANGE,
+//             page: 'home'
+//         });
+//
+//         return this;
+//     },
+//
+//     user: function() {
+//         this.dispatch({
+//             action: constants.HASH_CHANGE,
+//             page: 'user'
+//         });
+//
+//         return this;
+//     }
+//
+// });
 
-    bindall( this );
+class Router extends Dispatcher {
+    constructor() {
+        Dispatcher.call( this );
 
-    router.configure({
-        notfound: this.home
-    });
+        bindall( this );
 
-    router.on( '/', this.home );
-    router.on( '/user', this.user);
+        router.configure({
+            notfound: this.home
+        });
 
-    router.init();
+        router.on( '/', this.home );
+        router.on( '/user', this.user);
 
-    return this;
-};
+        router.init();
 
-Object.assign( Router.prototype, Dispatcher.prototype, {
+        return this;
+    }
 
-    home: function() {
+    home() {
         this.dispatch({
             action: constants.HASH_CHANGE,
             page: 'home'
         });
 
         return this;
-    },
+    }
 
-    user: function() {
+    user() {
         this.dispatch({
             action: constants.HASH_CHANGE,
             page: 'user'
@@ -44,8 +82,7 @@ Object.assign( Router.prototype, Dispatcher.prototype, {
 
         return this;
     }
-
-});
+}
 
 
 module.exports = new Router();

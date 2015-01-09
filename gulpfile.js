@@ -100,7 +100,10 @@ gulp.task( 'scripts', function() {
     // Basic bundler
     var bundler = browserify({
         entries: './src/scripts/main.jsx',
-        debug: !!args.d
+        debug: !!args.d,
+        cache: {},
+        packageCache: {},
+        fullPaths: args.w
     });
 
     // Add a watcher to wrap the bundler
