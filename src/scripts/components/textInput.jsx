@@ -24,7 +24,10 @@ var TodoTextInput = React.createClass({
 
   getInitialState: function() {
     return {
-      value: this.props.value || ''
+      value: this.props.value || '',
+      style: {
+          fontStyle: 'italic'
+      }
     };
   },
 
@@ -42,6 +45,7 @@ var TodoTextInput = React.createClass({
         onKeyDown={this._onKeyDown}
         value={this.state.value}
         autoFocus={true}
+        style={this.state.style}
       />
     );
   },
@@ -64,6 +68,19 @@ var TodoTextInput = React.createClass({
     this.setState({
       value: event.target.value
     });
+    if ( !event.target.value ) {
+        this.setState({
+            style: {
+                fontStyle: 'italic'
+            }
+        });
+    } else {
+        this.setState({
+            style: {
+                fontStyle: 'normal'
+            }
+        });
+    }
   },
 
   /**
