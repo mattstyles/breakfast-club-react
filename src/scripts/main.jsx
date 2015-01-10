@@ -5,6 +5,8 @@
  */
 
 var React = require( 'react' );
+var store = require( './stores/teamStore' );
+
 var Cover = require( './components/cover.jsx' );
 var Home = require( './components/home.jsx' );
 
@@ -20,7 +22,7 @@ var App = React.createClass({
     },
 
     componentWillMount: function() {
-        router.register( this.onHashChange );
+        // router.register( this.onHashChange );
     },
 
     onHashChange: function( payload ) {

@@ -16,11 +16,16 @@ class Router extends Dispatcher {
         });
 
         router.on( '/', this.home );
-        router.on( '/user', this.user);
+        router.on( '/user', this.user );
+        router.on( '/team/:teamID', this.team );
 
         router.init();
 
         return this;
+    }
+
+    setRoute( route ) {
+        router.setRoute( route );
     }
 
     home() {
@@ -40,7 +45,19 @@ class Router extends Dispatcher {
 
         return this;
     }
-}
 
+    team( teamID ) {
+        // hack hack hack
+        process.nextTick( function() {
+            this.dispatch({
+                action: constants.HASH_CHANGE,
+                page: 'team',
+                id: teamID
+            });
+        }.bind( this ));
+
+        return this;
+    }
+}
 
 module.exports = new Router();
