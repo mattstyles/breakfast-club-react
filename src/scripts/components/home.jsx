@@ -14,11 +14,17 @@ module.exports = React.createClass({
         router.register( function( payload ) {
             if ( payload.action === constants.HASH_CHANGE ) {
                 if ( payload.page === 'home' ) {
-                    this.onHome();
+                    this.refs.cover.getDOMNode().classList.remove( 'team' );
+                    setTimeout( function() {
+                        this.onHome();
+                    }.bind( this ), 500 );
                 }
 
                 if ( payload.page === 'team' ) {
-                    this.onTeam();
+                    this.refs.cover.getDOMNode().classList.add( 'team' );
+                    setTimeout( function() {
+                        this.onTeam();
+                    }.bind( this ), 500 );
                 }
             }
         }.bind( this ));
@@ -101,8 +107,8 @@ module.exports = React.createClass({
         var main = null;
         if ( this.state.team ) {
             main = (
-                <div>
-                    <h1 ref="members">Holla</h1>
+                <div ref="members" className="members cover-transition">
+                    <h1>Holla</h1>
                     <button className="square reverse backBtn" onClick={ this.onHome }>
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100.0 100.0">
                             <path d="M66.254 46.947L38.916 14.152c-1.13-1.36-3.154-1.543-4.512-.408-1.36 1.137-1.545 3.152-.412 4.512L59.622 49 33.99 79.742c-1.13 1.363-.947 3.38.412 4.514 1.357 1.135 3.38.95 4.512-.408l27.338-32.793C66.752 50.46 67 49.73 67 49c0-.73-.248-1.46-.746-2.053z"/>
@@ -112,7 +118,7 @@ module.exports = React.createClass({
             )
         } else {
             main = (
-                <div ref="choose" className="cover-block" style={ inputStyle }>
+                <div ref="choose" className="choose cover-block cover-transition" style={ inputStyle }>
                     <TextInput
                         ref="TeamInput"
                         onSave={ this.onSubmit }
@@ -133,7 +139,7 @@ module.exports = React.createClass({
         }
 
         return (
-            <div className="cover" style={ style }>
+            <div ref="cover" className="cover" style={ style }>
                 { main }
             </div>
         );
