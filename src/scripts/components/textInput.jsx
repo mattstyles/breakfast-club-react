@@ -40,7 +40,7 @@ var TodoTextInput = React.createClass({
         className={this.props.className}
         id={this.props.id}
         placeholder={this.props.placeholder}
-        onBlur={this._save}
+        onBlur={this._onBlur}
         onChange={this._onChange}
         onKeyDown={this._onKeyDown}
         value={this.state.value}
@@ -59,6 +59,10 @@ var TodoTextInput = React.createClass({
     // this.setState({
     //   value: ''
     // });
+  },
+
+  _onBlur: function() {
+      
   },
 
   /**

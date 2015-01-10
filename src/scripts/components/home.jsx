@@ -60,12 +60,19 @@ module.exports = React.createClass({
 
         return (
             <div className="cover" style={ style }>
-                <div className="input" style={ inputStyle }>
+                <div className="cover-block" style={ inputStyle }>
                     <TextInput
                         onSave={ this.onSubmit }
                         placeholder="Enter bitbucket team name"
                     />
-                    <button onClick={ this.onSubmit }>Find</button>
+                    <button onClick={ this.onSubmit }>
+                        Find
+                        <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100.0 100.0">
+                            <path d="M66.254 46.947L38.916 14.152c-1.13-1.36-3.154-1.543-4.512-.408-1.36 1.137-1.545 3.152-.412 4.512L59.622 49 33.99 79.742c-1.13 1.363-.947 3.38.412 4.514 1.357 1.135 3.38.95 4.512-.408l27.338-32.793C66.752 50.46 67 49.73 67 49c0-.73-.248-1.46-.746-2.053z"/>
+                        </svg>
+                        </span>
+                    </button>
                 </div>
             </div>
         );
