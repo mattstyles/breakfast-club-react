@@ -29,10 +29,13 @@ class Router extends Dispatcher {
     }
 
     home() {
-        this.dispatch({
-            action: constants.HASH_CHANGE,
-            page: 'home'
-        });
+        // hack hack hack
+        process.nextTick( function() {
+            this.dispatch({
+                action: constants.HASH_CHANGE,
+                page: 'home'
+            });
+        }.bind( this ));
 
         return this;
     }

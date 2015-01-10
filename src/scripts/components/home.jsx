@@ -10,6 +10,18 @@ module.exports = React.createClass({
 
     componentWillMount: function() {
         window.addEventListener( 'resize', this.onResize );
+
+        router.register( function( payload ) {
+            if ( payload.action === constants.HASH_CHANGE ) {
+                if ( payload.page === 'home' ) {
+                    this.onHome();
+                }
+
+                if ( payload.page === 'team' ) {
+                    this.onTeam();
+                }
+            }
+        }.bind( this ));
     },
 
     componentDidMount: function() {
@@ -25,13 +37,30 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            height: 0
+            height: 0,
+            width: 0,
+            team: false,
+            value: ''
         };
+    },
+
+    onHome: function() {
+        router.setRoute( '/' );
+        this.setState({
+            team: false
+        });
+    },
+
+    onTeam: function() {
+        this.setState({
+            team: true
+        });
     },
 
     onResize: function( event ) {
         this.setState({
-            height: window.innerHeight
+            height: window.innerHeight,
+            width: window.innerWidth
         });
     },
 
@@ -43,8 +72,21 @@ module.exports = React.createClass({
         router.setRoute( '/team/' + value );
     },
 
+    onFind: function() {
+        this.onSubmit( this.refs.TeamInput.getDOMNode().value );
+    },
+
     onStoreChange: function( members ) {
         console.log( 'Store changed', members );
+
+        if ( !this.state.team ) {
+            console.log( 'choosing' );
+            this.setState({
+                team: true
+            });
+
+
+        }
     },
 
     render: function() {
@@ -56,20 +98,43 @@ module.exports = React.createClass({
             top: this.state.height / 2 - 60
         };
 
-        return (
-            <div className="cover" style={ style }>
-                <div className="cover-block" style={ inputStyle }>
+        var main = null;
+        if ( this.state.team ) {
+            main = (
+                <div>
+                    <h1 ref="members">Holla</h1>
+                    <button className="square reverse backBtn" onClick={ this.onHome }>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100.0 100.0">
+                            <path d="M66.254 46.947L38.916 14.152c-1.13-1.36-3.154-1.543-4.512-.408-1.36 1.137-1.545 3.152-.412 4.512L59.622 49 33.99 79.742c-1.13 1.363-.947 3.38.412 4.514 1.357 1.135 3.38.95 4.512-.408l27.338-32.793C66.752 50.46 67 49.73 67 49c0-.73-.248-1.46-.746-2.053z"/>
+                        </svg>
+                    </button>
+                </div>
+            )
+        } else {
+            main = (
+                <div ref="choose" className="cover-block" style={ inputStyle }>
                     <TextInput
+                        ref="TeamInput"
                         onSave={ this.onSubmit }
                         placeholder="Enter bitbucket team name"
                     />
-                    <button onClick={ this.onSubmit }>
+                    <button className="findBtn" onClick={ this.onFind }>
                         Find
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100.0 100.0">
                             <path d="M66.254 46.947L38.916 14.152c-1.13-1.36-3.154-1.543-4.512-.408-1.36 1.137-1.545 3.152-.412 4.512L59.622 49 33.99 79.742c-1.13 1.363-.947 3.38.412 4.514 1.357 1.135 3.38.95 4.512-.408l27.338-32.793C66.752 50.46 67 49.73 67 49c0-.73-.248-1.46-.746-2.053z"/>
                         </svg>
                     </button>
                 </div>
+            )
+        }
+
+        if ( this.state.team === 0 ) {
+            main = null;
+        }
+
+        return (
+            <div className="cover" style={ style }>
+                { main }
             </div>
         );
     }

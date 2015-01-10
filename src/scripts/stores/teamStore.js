@@ -24,7 +24,10 @@ class TeamStore extends EventEmitter {
 
     _getMembers( id ) {
         setTimeout( function() {
-            this.emit( constants.CHANGE_EVENT, { foo: 'foo' } );
+            this.emit( constants.CHANGE_EVENT, {
+                foo: 'foo',
+                member: id
+            });
         }.bind( this ), 1000 );
     }
 
