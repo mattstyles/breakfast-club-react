@@ -5,6 +5,8 @@ var router = require( '../routers/router.jsx' );
 var dispatcher = require( '../dispatchers/dispatcher' );
 
 
+var _members = null;
+
 /**
  * Export the store
  */
@@ -27,9 +29,23 @@ class TeamStore extends EventEmitter {
         setTimeout( function() {
             this.emit( constants.CHANGE_EVENT, {
                 foo: 'foo',
-                member: id
+                team: id,
+                members: [
+                    {
+                        foo: 'foo',
+                        bar: 'baz'
+                    },
+                    {
+                        foo: 'bar',
+                        bar: 'quux'
+                    }
+                ]
             });
         }.bind( this ), 1000 );
+    }
+
+    get() {
+        return _members;
     }
 
 
