@@ -2,13 +2,12 @@
 
 var router = require( 'director' ).Router();
 var bindall = require( 'lodash.bindall' );
-var Dispatcher = require( 'flux' ).Dispatcher;
+var dispatcher = require( '../dispatchers/dispatcher' );
 
 var constants = require( '../constants/actions' );
 
-class Router extends Dispatcher {
+class Router  {
     constructor() {
-        super();
         bindall( this );
 
         router.configure({
@@ -16,51 +15,36 @@ class Router extends Dispatcher {
         });
 
         router.on( '/', this.home );
-        router.on( '/user', this.user );
         router.on( '/team/:teamID', this.team );
 
         router.init();
 
-        return this;
-    }
+        // Make sure route is set
+        if ( !window.location.hash.length ) {
+            router.setRoute( '/' );
+        }
 
-    setRoute( route ) {
-        router.setRoute( route );
+        return this;
     }
 
     home() {
-        // hack hack hack
-        process.nextTick( function() {
-            this.dispatch({
-                action: constants.HASH_CHANGE,
-                page: 'home'
-            });
-        }.bind( this ));
-
-        return this;
-    }
-
-    user() {
-        this.dispatch({
+        dispatcher.dispatch({
             action: constants.HASH_CHANGE,
-            page: 'user'
+            page: 'home'
         });
 
         return this;
     }
 
     team( teamID ) {
-        // hack hack hack
-        process.nextTick( function() {
-            this.dispatch({
-                action: constants.HASH_CHANGE,
-                page: 'team',
-                id: teamID
-            });
-        }.bind( this ));
+        dispatcher.dispatch({
+            action: constants.HASH_CHANGE,
+            page: 'team',
+            id: teamID
+        });
 
         return this;
     }
 }
 
-module.exports = new Router();
+module.exports = Router;

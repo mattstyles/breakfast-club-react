@@ -2,6 +2,7 @@
 var EventEmitter = require( 'events' ).EventEmitter;
 var constants = require( '../constants/actions.js' );
 var router = require( '../routers/router.jsx' );
+var dispatcher = require( '../dispatchers/dispatcher' );
 
 
 /**
@@ -9,7 +10,7 @@ var router = require( '../routers/router.jsx' );
  */
 class TeamStore extends EventEmitter {
     constructor() {
-        router.register( this.onDispatch.bind( this ) );
+        dispatcher.register( this.onDispatch.bind( this ) );
     }
 
     onDispatch( payload ) {

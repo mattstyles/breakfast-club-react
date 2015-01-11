@@ -2,7 +2,8 @@
 var React = require( 'react' );
 
 var TextInput = require( './textInput.jsx' );
-var router = require( '../routers/router.jsx' );
+var Router = require( '../routers/router.jsx' );
+var dispatcher = require( '../dispatchers/dispatcher' );
 var constants = require( '../constants/actions.js' );
 var teamStore = require( '../stores/teamStore.js' );
 
@@ -11,23 +12,26 @@ module.exports = React.createClass({
     componentWillMount: function() {
         window.addEventListener( 'resize', this.onResize );
 
-        router.register( function( payload ) {
+        dispatcher.register( function( payload ) {
             if ( payload.action === constants.HASH_CHANGE ) {
                 if ( payload.page === 'home' ) {
-                    this.refs.cover.getDOMNode().classList.remove( 'team' );
-                    setTimeout( function() {
-                        this.onHome();
-                    }.bind( this ), 500 );
+                    this.setState({
+                        selectVisible: true,
+                        showVisible: false
+                    });
                 }
 
                 if ( payload.page === 'team' ) {
-                    this.refs.cover.getDOMNode().classList.add( 'team' );
-                    setTimeout( function() {
-                        this.onTeam();
-                    }.bind( this ), 500 );
+                    this.setState({
+                        selectVisible: false,
+                        showVisible: true
+                    })
                 }
             }
         }.bind( this ));
+
+        // Creating Router
+        new Router();
     },
 
     componentDidMount: function() {
@@ -45,21 +49,21 @@ module.exports = React.createClass({
         return {
             height: 0,
             width: 0,
-            team: false,
-            value: ''
+            value: '',
+            selectVisible: false,
+            showVisible: false
         };
     },
 
     onHome: function() {
-        router.setRoute( '/' );
         this.setState({
-            team: false
+            screen: 'home'
         });
     },
 
     onTeam: function() {
         this.setState({
-            team: true
+            screen: 'team'
         });
     },
 
@@ -75,7 +79,7 @@ module.exports = React.createClass({
             return;
         }
 
-        router.setRoute( '/team/' + value );
+        // router.setRoute( '/team/' + value );
     },
 
     onFind: function() {
@@ -88,7 +92,7 @@ module.exports = React.createClass({
         if ( !this.state.team ) {
             console.log( 'choosing' );
             this.setState({
-                team: true
+                screen: 'team'
             });
 
 
@@ -104,10 +108,10 @@ module.exports = React.createClass({
             top: this.state.height / 2 - 60
         };
 
-        var main = null;
-        if ( this.state.team ) {
-            main = (
-                <div ref="members" className="members cover-transition">
+        return (
+            <div ref="cover" className="cover" style={ style }>
+
+                <div ref="show" className={ this.state.showVisible ? 'members cover-transition' : 'hidden members cover-transition' }>
                     <h1>Holla</h1>
                     <button className="square reverse backBtn" onClick={ this.onHome }>
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100.0 100.0">
@@ -115,10 +119,8 @@ module.exports = React.createClass({
                         </svg>
                     </button>
                 </div>
-            )
-        } else {
-            main = (
-                <div ref="choose" className="choose cover-block cover-transition" style={ inputStyle }>
+
+                <div ref="select" className={ this.state.selectVisible ? 'choose cover-block cover-transition' : 'hidden choose cover-block cover-transition' } style={ inputStyle }>
                     <TextInput
                         ref="TeamInput"
                         onSave={ this.onSubmit }
@@ -131,16 +133,7 @@ module.exports = React.createClass({
                         </svg>
                     </button>
                 </div>
-            )
-        }
 
-        if ( this.state.team === 0 ) {
-            main = null;
-        }
-
-        return (
-            <div ref="cover" className="cover" style={ style }>
-                { main }
             </div>
         );
     }
