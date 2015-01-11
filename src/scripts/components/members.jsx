@@ -9,11 +9,6 @@ module.exports = React.createClass({
     render: function() {
         setTimeout( this.renderNextMember, 500 );
 
-        var containerStyle = {
-            width: this.props.dimensions.width,
-            height: this.props.dimensions.height
-        };
-
         var members = '';
 
         if ( this.props.members ) {
@@ -26,8 +21,8 @@ module.exports = React.createClass({
 
         return (
             <div>
-                <h1>Members</h1>
-                <div id="container" ref="grid" style={ containerStyle }>
+                <h1>{ this.props.team }</h1>
+                <div id="container" className="memberList" ref="grid">
                     { members }
                 </div>
             </div>

@@ -100,7 +100,7 @@ module.exports = React.createClass({
 
     render: function() {
         var style = {
-            height: this.state.height
+            minHeight: this.state.height
         };
 
         var inputStyle = {
