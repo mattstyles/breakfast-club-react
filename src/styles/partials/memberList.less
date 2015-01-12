@@ -1,4 +1,31 @@
+@image-size: 40px;
+@image-pad: 24px;
+
 .memberList {
     .center-block;
+
+    list-style-type: none;
     width: 80%;
+    margin-top: 2em;
+
+    .memberlist-item {
+        padding: 10px 0;
+        text-align: center;
+
+        margin-left: 0 - @image-pad - @image-size;
+
+        img {
+            display:inline-block;
+            .border-radius( 200px );
+            margin-right: @image-pad;
+        }
+
+        h2 {
+            display: inline-block;
+            color: #fff;
+            margin: 0;
+        }
+    }
+
+
 }

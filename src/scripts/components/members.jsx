@@ -14,7 +14,10 @@ module.exports = React.createClass({
         if ( this.props.members ) {
             members = this.props.members.values.map( function( member ) {
                 return (
-                    <h2>{ member.display_name }</h2>
+                    <li className="memberlist-item">
+                        <img src={ member.links.avatar.href } width="40" height="40" />
+                        <h2>{ member.display_name }</h2>
+                    </li>
                 );
             });
         }
@@ -22,9 +25,9 @@ module.exports = React.createClass({
         return (
             <div>
                 <h1>{ this.props.team }</h1>
-                <div id="container" className="memberList" ref="grid">
+                <ul id="container" className="memberList" ref="grid">
                     { members }
-                </div>
+                </ul>
             </div>
         );
     },
