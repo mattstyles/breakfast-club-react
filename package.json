@@ -1,6 +1,6 @@
 {
   "name": "breakfast-club-react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Breakfast club meeting about react, and awesome animals",
   "main": "index.js",
   "scripts": {
