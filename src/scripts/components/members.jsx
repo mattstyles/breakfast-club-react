@@ -12,9 +12,9 @@ module.exports = React.createClass({
         var members = '';
 
         if ( this.props.members ) {
-            members = this.props.members.map( function( member ) {
+            members = this.props.members.values.map( function( member ) {
                 return (
-                    <h1>{ member.foo }</h1>
+                    <h2>{ member.display_name }</h2>
                 );
             });
         }
@@ -26,7 +26,7 @@ module.exports = React.createClass({
                     { members }
                 </div>
             </div>
-        )
+        );
     },
 
     renderNextMember: function() {

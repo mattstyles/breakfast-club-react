@@ -5,12 +5,9 @@
  */
 
 var React = require( 'react' );
-var store = require( './stores/teamStore' );
 
-var Cover = require( './components/cover.jsx' );
 var Home = require( './components/home.jsx' );
 
-var router = require( './routers/router.jsx' );
 var constants = require( './constants/actions' );
 
 var App = React.createClass({
@@ -18,7 +15,7 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             page: 'home'
-        }
+        };
     },
 
     componentWillMount: function() {
@@ -45,12 +42,12 @@ var App = React.createClass({
         if ( this.state.page === 'user' ) {
             return (
                 <h1>Hello user</h1>
-            )
+            );
         }
 
         return (
             <h1>Default</h1>
-        )
+        );
     }
 });
 

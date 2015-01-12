@@ -27,25 +27,19 @@ class TeamStore extends EventEmitter {
     }
 
     _getMembers( id ) {
-        console.log( 'getting members', id );
         request
-            .get( 'https://bitbucket.org/api/2.0/teams/' + id + '/members' )
-            .set('Content-Type', 'application/json; charset=utf-8')
-            .withCredentials()
+            // .get( 'https://bitbucket.org/api/2.0/teams/' + id + '/members' )
+            .get( 'dist/assets/bb_response.json' )
             .end( function( res ) {
                 if ( !res.ok ) {
                     throw new Error( 'Error fulfilling request' );
                 }
 
-                console.log( res );
-
                 this.emit( constants.CHANGE_EVENT, {
                     team: id,
-                    members: res
+                    members: JSON.parse( res.text )
                 });
             }.bind( this ));
-
-
     }
 
     get() {
