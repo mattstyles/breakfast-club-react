@@ -17,7 +17,7 @@
     "keymirror": "^0.1.1",
     "object-assign": "^2.0.0",
     "react": "^0.12.2",
-    "superagent": "^0.21.0"
+    "superagent": "^5.1.0"
   },
   "devDependencies": {
     "browserify": "^8.0.3",
